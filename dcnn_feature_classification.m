@@ -1,5 +1,5 @@
-%report1_dcnn.m
-%バトムンフ　スフバト　2110733
+%バトムンフ　スフバト
+%Suhbat Batmunkh
 
 list={};
 LIST={'hamburger' 'sandwich'};
