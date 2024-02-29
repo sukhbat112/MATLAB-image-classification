@@ -1,6 +1,5 @@
-
-%report2.m
-%バトムンフ　スフバト　2110733
+%バトムンフ　スフバト
+%Sukhbat Batmunhk
 
 list={};
 LIST={'hamburger' 'other' 'hamburger_noise'};
@@ -144,5 +143,3 @@ for i=1:100
     imshow(img);
     %title(string(i));
 end
-
-
