@@ -1,5 +1,4 @@
-%report1_bof.m
-%バトムンフ　スフバト　2110733
+%バトムンフ　スフバト
 
 LIST={'hamburger' 'sandwich'};
 %LIST={'pizza' 'rose'};
@@ -25,17 +24,17 @@ negimg=list(101:200);
 newlist={posimg{:} negimg{:}};
 
 
-%bof表現にする
+%bof histogram expression
 features=[];
 for i=1:200
   I=rgb2gray(imread(newlist{i}));
-  p=createRandomPoints(I, 2000);  %%%ランダムサンプリング
+  p=createRandomPoints(I, 2000);  %%%random point sampling 
   [f,p2]=extractFeatures(I,p);
 
   features=[features; f];
 end
 
-features=features(randperm(size(features,1),40000),:); %40000に減らした。
+features=features(randperm(size(features,1),40000),:); %select 40000 randomly to save time (optional)
 k = 500;
 [idx, codebook]=kmeans(features, k);
 
@@ -61,19 +60,20 @@ for j = 1:n  % each image
     end
 end
 
-% 正規化
+%normalization
 bof = bof./sum(bof, 2);
 
-%データとラベル
-data_pos = bof(1:100,:);
-data_neg = bof(101:200,:);
+%data label
+data_pos = bof(1:100,:); %positive bunch
+data_neg = bof(101:200,:); %negative bunch
 
+%5 fold cross validation
 cv=5;
 idx=[1:100];
 
 accuracy=[];
-% idx番目(idxはcvで割った時の余りがi-1)が評価データ
-% それ以外は学習データ
+% {idx} is evaluation data the other 4 is training data 
+
 for i=1:cv
 
     train_pos=data_pos(find(mod(idx,cv)~=(i-1)),:);
@@ -88,7 +88,7 @@ for i=1:cv
     eval_label =[ones(20,1); ones(20,1)*(-1)];
 
 
-    %%非線形(rbf)を用いる
+    %%linear SVM model for the training and prediction
     model = fitcsvm(train_data, train_label,'KernelFunction','rbf','KernelScale','auto');
     [predicted_label, scores] = predict(model, eval_data);
 
