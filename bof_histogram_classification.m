@@ -88,7 +88,7 @@ for i=1:cv
     eval_label =[ones(20,1); ones(20,1)*(-1)];
 
 
-    %%linear SVM model for the training and prediction
+    %%non-linear SVM model (rbf kernel) for the training and prediction
     model = fitcsvm(train_data, train_label,'KernelFunction','rbf','KernelScale','auto');
     [predicted_label, scores] = predict(model, eval_data);
 
