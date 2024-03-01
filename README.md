@@ -1,6 +1,7 @@
 # MATLAB-image-classification
 
 image classification tasks using 3 different methods on MATLAB
+
 Methods are:
 
 1. Histogram calculated by dividing color information (256 bit) into 64 dimension vector, and expressing each image as such.
